@@ -1,14 +1,22 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const punycode = require('punycode/');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // express app
 const app = express();
 
+//connect to mongodb
+
+mongoose.connect(process.env.MONGO_URI)
+.then((result) => app.listen(3000))
+.catch((err) => console.log(err));
+
 //register view engine
 app.set('view engine', 'ejs');
 
-
-// listen for requests
-app.listen(3000);
 
 app.get('/', (req, res) => {
   // res.send('<p>home page</p>');
